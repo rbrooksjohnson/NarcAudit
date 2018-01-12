@@ -1,0 +1,27 @@
+@import '~@angular/material/theming';
+
+// import all custom component themes
+@import '../../app/app.component.scss-theme';
+
+// angular material core library
+@include mat-core();
+
+// Define primary theme palettes
+$na-theme-primary: mat-palette($mat-grey, 200, 500, 300);
+$na-theme-accent: mat-palette($mat-brown, 200);
+$na-theme-warn: mat-palette($mat-deep-orange, 200);
+
+// Create the new master theme
+$na-theme: mat-light-theme($na-theme-primary, $na-theme-accent, $na-theme-warn);
+
+// Mix-in custom component themes
+@mixin na-theme($theme) {
+  @include na-app-component-theme(theme);
+}
+
+// Define the primary material theme as the new master theme
+@include angular-material-theme($na-theme);
+
+// Mix-in the custom component themes
+@include na-theme($na-theme);
+

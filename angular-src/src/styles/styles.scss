@@ -1,0 +1,32 @@
+
+@import 'app-loading';
+@import 'variables';
+
+@import '~font-awesome/scss/font-awesome';
+@import url(https://fonts.googleapis.com/icon?family=Roboto);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+@import 'themes/narcaudit';
+
+html, body {
+  height:100%;
+  margin:0;
+  font-family: Roboto, serif;
+}
+
+
+
+// _variables
+
+$fa-font-path: '../../node_modules/font-awesome/fonts';
+
+
+// app_loading:
+
+.app-loading {
+  .logo {
+    width: 300px;
+    height: 55px;
+    background: url(../assets/logo.png) center center no-repeat;
+  }
+}

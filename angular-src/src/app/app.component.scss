@@ -1,0 +1,80 @@
+.temp-bottom {
+  background-color: aquamarine;
+  min-height: 25px;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  display: flex;
+}
+
+.temp-side {
+  background-color: mediumaquamarine;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  display: flex;
+}
+
+:host ::ng-deep router-outlet + app-home {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+:host ::ng-deep router-outlet + app-login {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-sidenav-container {
+  height: 100%;
+
+  mat-toolbar {
+    z-index: 1;
+
+    .nav-button {
+      margin: 0 10px 0 0;
+    }
+
+    .sign-in-button {
+      line-height: 35px;
+      margin-right: 10px;
+    }
+
+    .spacer {
+      flex: 1 1 auto;
+    }
+  }
+}
+
+mat-sidenav {
+  width: 250px;
+
+  .header {
+    height: 64px;
+    padding: 8px 10px;
+    font-size: 20px;
+    font-weight: 500;
+
+    span {
+      position: relative;
+      top: 3px;
+    }
+  }
+
+  .nav-button {
+    margin: 0 10px 0 0;
+  }
+
+  .sign-in-button {
+    line-height: 35px;
+    margin-right: 10px;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
