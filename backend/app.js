@@ -55,7 +55,11 @@ app.use('/staff', staff);
 app.use('/facilities', facility);
 
 app.get('/', (req, res) => {
-  res.send('Invalid');
+  res.send('Invalid Endpoint');
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 app.listen(port, () => {

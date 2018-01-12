@@ -9,24 +9,29 @@
   <mat-sidenav-content fxLayout="column">
 
     <mat-toolbar color="primary">
-      <button mat-icon-button fxHide.gt-sm="true" (click)="sidenav.open()">
+      <button mat-icon-button [fxHide.gt-sm]="true" (click)="sidenav.open()">
         <mat-icon>menu</mat-icon>
       </button>
 
-      <span routerLink="" fxHide.gt-sm="true" class="spacer text-center">
+      <span routerLink="" [fxHide.gt-sm]="true" class="spacer text-center">
                 NarcAudit
             </span>
-      <span routerLink="" fxHide.lt-md="true" class="spacer">
+      <span routerLink="" [fxHide.lt-md]="true" class="spacer">
                 NarcAudit | Narcotics Inventory Management
             </span>
 
-      <span fxHide.lt-md="true">
-                <button mat-button class="nav-button" [routerLink]="['/about']" routerLinkActive="active">About</button>
-                <button mat-button class="nav-button" [routerLink]="['/examples']" routerLinkActive="active">Examples</button>
+      <span [fxHide.lt-md]="true">
+                <button mat-button class="nav-button" *ngIf="authService.loggedIn()" [routerLink]="['/dashboard']"
+                        routerLinkActive="active">Dashboard</button>
+                <button mat-button class="nav-button" [routerLink]="['/examples']"
+                        routerLinkActive="active">Examples</button>
                 <button mat-button class="nav-button" [routerLink]="['faqs']" routerLinkActive="active">FAQs</button>
             </span>
 
-      <button mat-button class="sign-in-button" [routerLink]="['/login']" routerLinkActive="active">Sign In</button>
+      <button mat-button class="sign-in-button" *ngIf="!authService.loggedIn()" [routerLink]="['/login']"
+              routerLinkActive="active">Sign In
+      </button>
+      <button mat-button class="sign-in-button" *ngIf="authService.loggedIn()" (click)="authService.logout()">Log Out</button>
     </mat-toolbar>
 
     <!--
@@ -40,6 +45,8 @@
         </div>
     </div>
     -->
+
+    <!-- TODO: remove inline style -->
 
     <div fxFlex fxLayout="column" fxFlexAlign="center none">
       <div fxFlex>

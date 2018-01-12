@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
           this.snackBar.open(this.serviceResponse.msg, 'OK', { duration: 3000 });
           if (this.serviceResponse.success) {
             this.authService.storeUserData(this.serviceResponse.token, this.serviceResponse.user);
-            this.router.navigate(['./']);
+            this.router.navigate(['./dashboard']);
           } else {
           }
         },
