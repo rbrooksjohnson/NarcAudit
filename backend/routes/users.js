@@ -216,6 +216,7 @@ router.get('/password_reset', (req, res) => {
                 msg: 'Error: Email is not registered',
             })
         } else {
+            console.log(callback.password_reset_token);
             const mailOptions = {
                 from: '"NarcAudit Security" <passwords@cglbrokers.com>', // sender address
                 to: req.query.email, // list of receivers

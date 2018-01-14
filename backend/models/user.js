@@ -118,7 +118,7 @@ module.exports.issuePasswordResetToken = (email, callback) => {
                 password_reset_token: token,
                 password_reset_token_expiration: expiration,
             }
-        }, callback)
+        }, {new: true}, callback)
     })
 };
 
