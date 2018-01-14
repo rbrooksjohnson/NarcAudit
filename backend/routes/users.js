@@ -39,7 +39,7 @@ router.post('/authenticate', (req, res) => {
         if (err) {
             return res.json({
                 success: false,
-                msg: 'Error: '+err,
+                msg: 'Error: ' + err,
             })
         }
         if (!user) {
@@ -53,7 +53,7 @@ router.post('/authenticate', (req, res) => {
             if (err) {
                 return res.json({
                     success: false,
-                    msg: 'Error: '+err,
+                    msg: 'Error: ' + err,
                 })
             }
             if (isMatch) {
@@ -191,5 +191,57 @@ router.put('/admin/user', passport.authenticate('jwt', {session: false}),
             return res.json({success: false, msg: 'Unauthorized'})
         }
     });
+
+
+// GET to request a temporary password
+//      Takes a QUERY formatted /users/password_reset?email=email@email.com
+//      Send password reset email to user with token
+
+router.get('/password_reset', (req, res) => {
+    User.issuePasswordResetToken(req.query.email, (err) => {
+        if (err) {
+            res.json({
+                success: false,
+                msg: 'Error: Email is not registered',
+            })
+        } else {
+            res.json({
+                success: true,
+                msg: 'Success',
+            })
+        }
+    })
+});
+
+// POST to initiate a password reset
+//      Body must contain:
+//          token : (contains temporary token value from email)
+//          password : (contains new password, validated on front end)
+//      Send password reset confirmation email for security
+
+router.post('/password_reset', (req,res) => {
+    User.getUserByPasswordResetToken(req.body.token, (err, callback) => {
+        if (!err && (callback!=null)) {
+            User.resetPassword(callback, req.body.password, (err, callback) => {
+                if (err) {
+                    res.json({
+                        success: false,
+                        msg: 'Error: '+err
+                    })
+                } else {
+                    res.json({
+                        success: true,
+                        msg: 'Successfully Reset Password for '+callback.email,
+                    })
+                }
+            })
+        } else {
+            res.json({
+                success: false,
+                msg: 'Error: Token Expired'
+            })
+        }
+    })
+});
 
 module.exports = router;
