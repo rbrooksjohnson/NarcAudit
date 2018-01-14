@@ -2,9 +2,20 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
+const nodemailer = require('nodemailer');
 
 const User = require('../models/user');
 const router = express.Router();
+
+const transporter = nodemailer.createTransport({
+    host: 'one.mxroute.com',
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+        user: 'passwords@cglbrokers.com',
+        pass: 'mxroutecglbrokerspasswords'
+    }
+});
 
 // Register
 router.post('/register', (req, res) => {
@@ -198,13 +209,26 @@ router.put('/admin/user', passport.authenticate('jwt', {session: false}),
 //      Send password reset email to user with token
 
 router.get('/password_reset', (req, res) => {
-    User.issuePasswordResetToken(req.query.email, (err) => {
+    User.issuePasswordResetToken(req.query.email, (err, callback) => {
         if (err) {
             res.json({
                 success: false,
                 msg: 'Error: Email is not registered',
             })
         } else {
+            const mailOptions = {
+                from: '"NarcAudit Security" <passwords@cglbrokers.com>', // sender address
+                to: req.query.email, // list of receivers
+                subject: 'Password Reset', // Subject line
+                text: 'Please visit this link: http://localhost:3000/password_reset?token='+callback.password_reset_token, // plain text body
+                html: '<html><head><title>Forgot Password Email</title></head><body><div><h3>Dear '+callback.name+',</h3><p>Someone has requested a password reset for your account.  Please use the following <a href="http://localhost:3000/password_reset?token='+callback.password_reset_token+'">link</a> to complete the process.</p><br><p>Thank you!</p><p>NarcAudit.com</p></div></body></html>' // html body
+            };
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    return console.log(error);
+                }
+                console.log('Message sent: %s', info.messageId);
+            });
             res.json({
                 success: true,
                 msg: 'Success',
@@ -229,6 +253,19 @@ router.post('/password_reset', (req,res) => {
                         msg: 'Error: '+err
                     })
                 } else {
+                    const mailOptions = {
+                        from: '"NarcAudit Security" <passwords@cglbrokers.com>', // sender address
+                        to: callback.email, // list of receivers
+                        subject: 'Your Password Has Changed', // Subject line
+                        text: 'Your password has recently been reset. If you did not request this, please log on to NarcAudit.com and update your account immediately', // plain text body
+                        html: '<html><head><title>Password Recently Updated</title></head><body><div><h3>Dear '+callback.name+',</h3><p>Your password has recently been reset. If you did not request this, please log on to NarcAudit.com and update your account immediately.</p><br><p>Thank you!</p><p>NarcAudit.com</p></div></body></html>' // html body
+                    };
+                    transporter.sendMail(mailOptions, (error, info) => {
+                        if (error) {
+                            return console.log(error);
+                        }
+                        console.log('Message sent: %s', info.messageId);
+                    });
                     res.json({
                         success: true,
                         msg: 'Successfully Reset Password for '+callback.email,
