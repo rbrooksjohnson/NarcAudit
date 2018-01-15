@@ -15,7 +15,7 @@ export class AuthService {
     return this.http.post(
       'http://localhost:3000/users/register',
       user,
-      { headers: headers });
+      {headers: headers});
   };
 
   loginUser(user) {
@@ -23,7 +23,7 @@ export class AuthService {
     return this.http.post(
       'http://localhost:3000/users/authenticate',
       user,
-      { headers: headers });
+      {headers: headers});
   };
 
   getProfile() {
@@ -31,7 +31,7 @@ export class AuthService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json').set('jwt', this.authToken);
     return this.http.get(
       'http://localhost:3000/users/profile',
-      { headers: headers });
+      {headers: headers});
   };
 
   storeUserData(token, user) {
@@ -53,5 +53,13 @@ export class AuthService {
 
   loggedIn() {
     return tokenNotExpired('id_token');
+  };
+
+  resetPassword(body) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(
+      'http://localhost:3000/users/password_reset',
+      body,
+      {headers: headers});
   };
 }

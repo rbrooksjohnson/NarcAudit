@@ -7,6 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 
 
 // Common Module Imports
@@ -27,7 +28,8 @@ import { AuthGuard } from './services/auth-guard.service';
     HomeComponent,
     LoginComponent,
     DashboardComponent,
-    RegisterComponent
+    RegisterComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,

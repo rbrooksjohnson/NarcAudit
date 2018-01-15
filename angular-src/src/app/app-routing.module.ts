@@ -6,6 +6,7 @@ import {HomeComponent} from './components/home/home.component';
 import {LoginComponent} from './components/login/login.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {RegisterComponent} from './components/register/register.component';
+import {PasswordResetComponent} from './components/password-reset/password-reset.component';
 
 // Guards
 import { AuthGuard } from './services/auth-guard.service';
@@ -15,6 +16,7 @@ const routes: Routes =  [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
+  { path: 'password_reset', component: PasswordResetComponent },
 ];
 
 @NgModule({

@@ -17,6 +17,10 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+// TODO: Add templating to HTML email responses
+// See Tutorial: https://www.codementor.io/joshuaaroke/sending-html-message-in-nodejs-express-9i3d3uhjr
+
+
 // Register
 router.post('/register', (req, res) => {
     let newUser = new User({
@@ -250,8 +254,8 @@ router.get('/password_reset', (req, res) => {
                 from: '"NarcAudit Security" <passwords@cglbrokers.com>', // sender address
                 to: req.query.email, // list of receivers
                 subject: 'Password Reset', // Subject line
-                text: 'Please visit this link: http://localhost:3000/password_reset?token='+callback.password_reset_token, // plain text body
-                html: '<html><head><title>Forgot Password Email</title></head><body><div><h3>Dear '+callback.name+',</h3><p>Someone has requested a password reset for your account.  Please use the following <a href="http://localhost:3000/password_reset?token='+callback.password_reset_token+'">link</a> to complete the process.</p><br><p>Thank you!</p><p>NarcAudit.com</p></div></body></html>' // html body
+                text: 'Please visit this link: http://localhost:4200/password_reset?token='+callback.password_reset_token, // plain text body
+                html: '<html><head><title>Forgot Password Email</title></head><body><div><h3>Dear '+callback.name+',</h3><p>Someone has requested a password reset for your account.  Please use the following <a href="http://localhost:4200/password_reset?token='+callback.password_reset_token+'">link</a> to complete the process.</p><br><p>Thank you!</p><p>NarcAudit.com</p></div></body></html>' // html body
             };
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
@@ -274,6 +278,7 @@ router.get('/password_reset', (req, res) => {
 //      Send password reset confirmation email for security
 
 router.post('/password_reset', (req,res) => {
+    console.log(req);
     User.getUserByPasswordResetToken(req.body.token, (err, callback) => {
         if (!err && (callback!=null)) {
             User.resetPassword(callback, req.body.password, (err, callback) => {
