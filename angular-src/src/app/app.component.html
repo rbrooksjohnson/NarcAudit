@@ -26,6 +26,7 @@
                 <button mat-button class="nav-button" [routerLink]="['/examples']"
                         routerLinkActive="active">Examples</button>
                 <button mat-button class="nav-button" [routerLink]="['faqs']" routerLinkActive="active">FAQs</button>
+                <button mat-button class="sign-in-button" *ngIf="!authService.loggedIn()" [routerLink]="['register']" routerLinkActive="active">Sign-Up</button>
             </span>
 
       <button mat-button class="sign-in-button" *ngIf="!authService.loggedIn()" [routerLink]="['/login']"
@@ -33,18 +34,6 @@
       </button>
       <button mat-button class="sign-in-button" *ngIf="authService.loggedIn()" (click)="authService.logout()">Log Out</button>
     </mat-toolbar>
-
-    <!--
-    <div fxFlex fxLayout="column" fxFlexAlign="center none">
-        <div fxFlex>
-            <div fxLayout="row" style="height:100%;" fxFlexAlign="center stretch">
-                <div fxFlex="20" class="temp-side"><h2>LEFT</h2></div>
-                <router-outlet></router-outlet>
-                <div fxFlex="20" class="temp-side"><h2>RIGHT</h2></div>
-            </div>
-        </div>
-    </div>
-    -->
 
     <!-- TODO: remove inline style -->
 

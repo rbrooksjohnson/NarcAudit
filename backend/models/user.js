@@ -12,7 +12,7 @@ const UserSchema = mongoose.Schema({
         unique: true,
         required: true,
     },
-    username: {
+    facility: {
         type: String,
         required: true,
     },
@@ -41,8 +41,8 @@ module.exports.getUserById = (id, callback) => {
     User.findById(id, callback)
 };
 
-module.exports.getUserByUsername = (username, callback) => {
-    const query = {username: username};
+module.exports.getUserByUsername = (facility, callback) => {
+    const query = {facility: facility};
     User.findOne(query, callback)
 };
 
@@ -68,7 +68,7 @@ module.exports.updateById = (revisedUser, callback) => {
         $set: {
             name: revisedUser.name,
             email: revisedUser.email,
-            username: revisedUser.username,
+            facility: revisedUser.facility,
             superuser: revisedUser.superuser,
         },
     }, callback)

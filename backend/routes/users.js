@@ -22,20 +22,50 @@ router.post('/register', (req, res) => {
     let newUser = new User({
         name: req.body.name,
         email: req.body.email,
-        username: req.body.username,
+        facility: req.body.facility,
         password: req.body.password,
     });
 
-    User.addUser(newUser, (err) => {
+    User.addUser(newUser, (err, callback) => {
         if (err) {
-            res.json({
-                success: false,
-                msg: 'Failed to register user',
-            })
+            if (err.code === 11000) {
+                res.json({
+                    success: false,
+                    msg: 'Error: This email address already has an account',
+                });
+            } else {
+                res.json({
+                    success: false,
+                    msg: 'Error: Please try again later'
+                })
+            }
         } else {
+            const token = jwt.sign({data: callback}, config.secret, {
+                expiresIn: 604800, // 1 week
+            });
+            const mailOptions = {
+                from: '"NarcAudit" <passwords@cglbrokers.com>', // sender address
+                to: req.body.email, // list of receivers
+                subject: 'Welcome to NarcAudit', // Subject line
+                text: 'Welcome!', // plain text body
+                html: '<html><head><title>Welcome Email</title></head><body><div><h3>Dear '+req.body.name+',</h3><p>Welcome to NarcAudit.com!  We are glad you are here! </p><br><p>Thank you!</p><p>NarcAudit.com</p></div></body></html>' // html body
+            };
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    return console.log(error);
+                }
+                console.log('Message sent: %s', info.messageId);
+            });
             res.json({
                 success: true,
                 msg: 'User registered',
+                token: token,
+                user: {
+                        id: callback._id,
+                        name: callback.name,
+                        facility: callback.facility,
+                        email: callback.email,
+                },
             })
         }
     })
@@ -79,7 +109,7 @@ router.post('/authenticate', (req, res) => {
                     user: {
                         id: user._id,
                         name: user.name,
-                        username: user.username,
+                        facility: user.facility,
                         email: user.email,
                     },
                 })
@@ -183,7 +213,7 @@ router.put('/admin/user', passport.authenticate('jwt', {session: false}),
                 _id: req.body.id,
                 name: req.body.name,
                 email: req.body.email,
-                username: req.body.username,
+                facility: req.body.facility,
                 superuser: req.body.superuser,
             });
             User.updateById(revisedUser,
@@ -216,7 +246,6 @@ router.get('/password_reset', (req, res) => {
                 msg: 'Error: Email is not registered',
             })
         } else {
-            console.log(callback.password_reset_token);
             const mailOptions = {
                 from: '"NarcAudit Security" <passwords@cglbrokers.com>', // sender address
                 to: req.query.email, // list of receivers

@@ -1,0 +1,58 @@
+<div fxLayout="column" fxFlexAlign="center none" style="text-align: center; width: 100%;">
+  <div fxLayout="row" fxFlexAlign="center none">
+
+    <div class="xy-centered" [fxFlex]="50" [fxHide.xs]="true">
+      <h2>Welcome to something awesome</h2>
+      <h5>and a subtitle</h5>
+      <h3>Reasons to join:</h3>
+      <h5>number one</h5>
+      <h5>number two</h5>
+    </div>
+
+    <div [fxFlex.gt-sm]="30" [fxFlex.sm]="45" [fxFlex.xs]="100" style="padding: 10px;">
+      <mat-card>
+        <div class="title-text">Sign Up</div>
+        <mat-card-content>
+          <form class="entry-form-field">
+            <mat-form-field class="entry-field">
+              <input matInput placeholder="Your Name" [formControl]="nameFormControl" [(ngModel)]="name">
+              <mat-error *ngIf="emailFormControl.hasError('required')">
+                Your name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="entry-field">
+              <input matInput placeholder="Facility Name" [formControl]="facilityFormControl" [(ngModel)]="facility">
+              <mat-error *ngIf="emailFormControl.hasError('required')">
+                Your facility name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="entry-field">
+              <input matInput placeholder="Email" [formControl]="emailFormControl" [(ngModel)]="email">
+              <mat-error *ngIf="emailFormControl.hasError && !emailFormControl.hasError('required')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="entry-field">
+              <input matInput type="Password" placeholder="Password" [formControl]="passwordFormControl" [(ngModel)]="password">
+              <mat-error *ngIf="passwordFormControl.hasError && !passwordFormControl.hasError('required')">
+                Password must be longer than 8 characters
+              </mat-error>
+              <mat-error *ngIf="passwordFormControl.hasError('required')">
+                Password is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="onRegisterSubmit()">Submit</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div [fxFlex.gt-sm]="20" [fxFlex.lt-md]="5" [fxHide.xs]="true"></div>
+
+  </div>
+</div>
