@@ -4,6 +4,20 @@
     <div class="header">
       <span>Angular Starter</span>
     </div>
+    <mat-nav-list>
+      <a *ngIf="authService.loggedIn()" mat-list-item (click)="sidenav.close()"
+         [routerLink]="['dashboard']" routerLinkActive="active">
+        Dashboard
+      </a>
+      <a mat-list-item (click)="sidenav.close()"
+         [routerLink]="['examples']" routerLinkActive="active">
+        Examples
+      </a>
+      <a mat-list-item (click)="sidenav.close()"
+         [routerLink]="['faqs']" routerLinkActive="active">
+        FAQs
+      </a>
+    </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content fxLayout="column">
@@ -21,15 +35,15 @@
             </span>
 
       <span [fxHide.lt-md]="true">
-                <button mat-button class="nav-button" *ngIf="authService.loggedIn()" [routerLink]="['/dashboard']"
+                <button mat-button class="nav-button" *ngIf="authService.loggedIn()" [routerLink]="['dashboard']"
                         routerLinkActive="active">Dashboard</button>
-                <button mat-button class="nav-button" [routerLink]="['/examples']"
+                <button mat-button class="nav-button" [routerLink]="['examples']"
                         routerLinkActive="active">Examples</button>
                 <button mat-button class="nav-button" [routerLink]="['faqs']" routerLinkActive="active">FAQs</button>
-                <button mat-button class="sign-in-button" *ngIf="!authService.loggedIn()" [routerLink]="['register']" routerLinkActive="active">Sign-Up</button>
             </span>
 
-      <button mat-button class="sign-in-button" *ngIf="!authService.loggedIn()" [routerLink]="['/login']"
+      <button mat-button class="sign-in-button" *ngIf="!authService.loggedIn()" [routerLink]="['register']" routerLinkActive="active">Sign-Up</button>
+      <button mat-button class="sign-in-button" *ngIf="!authService.loggedIn()" [routerLink]="['login']"
               routerLinkActive="active">Sign In
       </button>
       <button mat-button class="sign-in-button" *ngIf="authService.loggedIn()" (click)="authService.logout()">Log Out</button>
@@ -45,7 +59,7 @@
       </div>
     </div>
 
-    <div fxFlex="15" class="temp-bottom"><h2>FOOTER</h2></div>
+    <div fxFlex="10" class="temp-bottom"><h2>FOOTER</h2></div>
 
   </mat-sidenav-content>
 

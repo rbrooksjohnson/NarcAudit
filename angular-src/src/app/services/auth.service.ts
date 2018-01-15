@@ -26,14 +26,6 @@ export class AuthService {
       {headers: headers});
   };
 
-  getProfile() {
-    this.loadToken();
-    const headers = new HttpHeaders().set('Content-Type', 'application/json').set('jwt', this.authToken);
-    return this.http.get(
-      'http://localhost:3000/users/profile',
-      {headers: headers});
-  };
-
   storeUserData(token, user) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
@@ -60,6 +52,14 @@ export class AuthService {
     return this.http.post(
       'http://localhost:3000/users/password_reset',
       body,
+      {headers: headers});
+  };
+
+  resetPasswordRequest(email) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const query = '?email='+email;
+    return this.http.get(
+      'http://localhost:3000/users/password_reset'+query,
       {headers: headers});
   };
 }

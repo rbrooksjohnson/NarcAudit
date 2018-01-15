@@ -13,8 +13,8 @@ import {MatSnackBar} from '@angular/material';
 
 export class LoginComponent implements OnInit {
 
-  email: any;
-  password: any;
+  email: String;
+  password: String;
   serviceResponse: any;
 
   emailFormControl = new FormControl('', [

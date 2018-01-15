@@ -45,6 +45,22 @@
   justify-content: center;
 }
 
+:host ::ng-deep router-outlet + app-password-reset {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  background-color:#a6dbea;
+}
+
+:host ::ng-deep router-outlet + app-password-reset-request {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  background-color:#a6dbea;
+}
+
 mat-sidenav-container {
   height: 100%;
 

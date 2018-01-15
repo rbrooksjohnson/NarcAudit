@@ -265,7 +265,7 @@ router.get('/password_reset', (req, res) => {
             });
             res.json({
                 success: true,
-                msg: 'Success',
+                msg: 'Success: Please Check Your Email for Link',
             })
         }
     })
