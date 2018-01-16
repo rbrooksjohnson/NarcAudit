@@ -10,7 +10,6 @@ import { RegisterComponent } from './components/register/register.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { PasswordResetRequestComponent } from './components/password-reset-request/password-reset-request.component';
 
-
 // Common Module Imports
 import { MaterialModule } from './common/material/material.module';
 import { AppRoutingModule } from './app-routing.module';

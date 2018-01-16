@@ -32,6 +32,10 @@ const UserSchema = mongoose.Schema({
     password_reset_token_expiration: {
         type: Number,
         required: false,
+    },
+    admin_pin: {
+        type: String,
+        required: false,
     }
 });
 
@@ -132,3 +136,5 @@ module.exports.resetPassword = (user, newPassword, callback) => {
     user.password_reset_token_expiration = undefined;
     user.save(callback)
 };
+
+
