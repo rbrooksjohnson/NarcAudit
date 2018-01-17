@@ -10,8 +10,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { PasswordResetRequestComponent } from './components/password-reset-request/password-reset-request.component';
 
-// Common Module Imports
+// Common Components
+import { LockComponent } from './common/lock/lock.component';
 import { MaterialModule } from './common/material/material.module';
+
+// Common Module Imports
 import { AppRoutingModule } from './app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 // Services
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
+import { ServerConfig } from './common/server/server.config';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,8 @@ import { AuthGuard } from './services/auth-guard.service';
     DashboardComponent,
     RegisterComponent,
     PasswordResetComponent,
-    PasswordResetRequestComponent
+    PasswordResetRequestComponent,
+    LockComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,7 @@ import { AuthGuard } from './services/auth-guard.service';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, ServerConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

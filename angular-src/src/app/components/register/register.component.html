@@ -15,22 +15,22 @@
         <mat-card-content>
           <form class="entry-form-field" [formGroup]="this.registerForm" #formDir="ngForm" [fxFlex]>
             <mat-form-field class="form-control entry-field">
-              <input matInput placeholder="Your Name" id="name" formControlName="name">
+              <input matInput placeholder="Your Name" id="name" formControlName="name" [(ngModel)]="this.user.name">
               <mat-error *ngIf="name.errors?.required">Your name is <strong>required</strong></mat-error>
             </mat-form-field>
             <mat-form-field class="entry-field">
-              <input matInput placeholder="Facility Name" id="facility" formControlName="facility">
+              <input matInput placeholder="Facility Name" id="facility" formControlName="facility" [(ngModel)]="this.user.facility">
               <mat-error *ngIf="facility.errors?.required">Your facility name is <strong>required</strong></mat-error>
             </mat-form-field>
             <br/>
             <mat-form-field class="entry-field">
-              <input matInput placeholder="Email" id="email" formControlName="email">
+              <input matInput placeholder="Email" id="email" formControlName="email" [(ngModel)]="this.user.email">
               <mat-error *ngIf="email.errors?.pattern">Please enter a valid email address</mat-error>
               <mat-error *ngIf="email.errors?.required">Email is <strong>required</strong></mat-error>
             </mat-form-field>
             <mat-form-field class="entry-field">
               <input matInput type="Password" id="password" placeholder="Password" formControlName="password"
-                     matTooltip="1 Upper - 1 Lower - 1 Number - 1 Special - 8-32 Characters">
+                     matTooltip="1 Upper - 1 Lower - 1 Number - 1 Special - 8-32 Characters" [(ngModel)]="this.user.password">
               <mat-error *ngIf="password.errors?.required">Password is <strong>required</strong></mat-error>
               <mat-error *ngIf="password.errors?.passwordUpperCaseLetterRequired">One Upper Case Letter Required</mat-error>
               <mat-error *ngIf="password.errors?.passwordLowerCaseLetterRequired">One Lower Case Letter Required</mat-error>
@@ -41,12 +41,12 @@
             </mat-form-field>
             <br/>
             <mat-form-field class="entry-field">
-              <input matInput type="Password" id="confirmPassword" placeholder="Verify Password" formControlName="confirmPassword">
+              <input matInput type="Password" id="confirmPassword" placeholder="Verify Password" formControlName="confirmPassword" [(ngModel)]="this.user.confirmPassword">
               <mat-error *ngIf="confirmPassword.errors?.required">Password is <strong>required</strong></mat-error>
               <mat-error *ngIf="confirmPassword.errors?.matchOther">Passwords do not match</mat-error>
             </mat-form-field>
             <mat-form-field class="entry-field">
-              <input matInput placeholder="6 Digit Administrator PIN" id="adminPin" formControlName="adminPin">
+              <input matInput placeholder="6 Digit Administrator PIN" id="adminPin" formControlName="adminPin" [(ngModel)]="this.user.adminPin">
               <mat-error *ngIf="adminPin.errors?.pattern">PIN must be <strong>6</strong> digits</mat-error>
               <mat-error *ngIf="adminPin.errors?.required">Administration PIN is <strong>required</strong></mat-error>
             </mat-form-field>

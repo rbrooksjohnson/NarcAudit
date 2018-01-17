@@ -1,19 +1,21 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {tokenNotExpired} from 'angular2-jwt';
+import {ServerConfig} from '../common/server/server.config';
 
 @Injectable()
 export class AuthService {
   authToken: any;
   user: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              public servers: ServerConfig) {
   }
 
   registerUser(user) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.post(
-      'http://localhost:3000/users/register',
+      'http://'+this.servers.backEnd+'/users/register',
       user,
       {headers: headers});
   };
@@ -21,7 +23,7 @@ export class AuthService {
   loginUser(user) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.post(
-      'http://localhost:3000/users/authenticate',
+      'http://'+this.servers.backEnd+'/users/authenticate',
       user,
       {headers: headers});
   };
@@ -50,7 +52,7 @@ export class AuthService {
   resetPassword(body) {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.post(
-      'http://localhost:3000/users/password_reset',
+      'http://'+this.servers.backEnd+'/users/password_reset',
       body,
       {headers: headers});
   };
@@ -59,7 +61,7 @@ export class AuthService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const query = '?email='+email;
     return this.http.get(
-      'http://localhost:3000/users/password_reset'+query,
+      'http://'+this.servers.backEnd+'/users/password_reset'+query,
       {headers: headers});
   };
 }

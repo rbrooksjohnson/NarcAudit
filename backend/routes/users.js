@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
+const server = require('../config/server');
 const nodemailer = require('nodemailer');
 
 const User = require('../models/user');
@@ -12,8 +13,8 @@ const transporter = nodemailer.createTransport({
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-        user: 'passwords@cglbrokers.com',
-        pass: 'mxroutecglbrokerspasswords'
+        user: server.mailUser,
+        pass: server.mailPass
     }
 });
 
@@ -28,6 +29,7 @@ router.post('/register', (req, res) => {
         email: req.body.email,
         facility: req.body.facility,
         password: req.body.password,
+        adminPin: req.body.adminPin
     });
 
     User.addUser(newUser, (err, callback) => {
@@ -254,8 +256,8 @@ router.get('/password_reset', (req, res) => {
                 from: '"NarcAudit Security" <passwords@cglbrokers.com>', // sender address
                 to: req.query.email, // list of receivers
                 subject: 'Password Reset', // Subject line
-                text: 'Please visit this link: http://localhost:4200/password_reset?token='+callback.password_reset_token, // plain text body
-                html: '<html><head><title>Forgot Password Email</title></head><body><div><h3>Dear '+callback.name+',</h3><p>Someone has requested a password reset for your account.  Please use the following <a href="http://localhost:4200/password_reset?token='+callback.password_reset_token+'">link</a> to complete the process.</p><br><p>Thank you!</p><p>NarcAudit.com</p></div></body></html>' // html body
+                text: 'Please visit this link: http://'+server.frontEnd+'/password_reset?token='+callback.password_reset_token, // plain text body
+                html: '<html><head><title>Forgot Password Email</title></head><body><div><h3>Dear '+callback.name+',</h3><p>Someone has requested a password reset for your account.  Please use the following <a href="http://'+server.frontEnd+'/password_reset?token='+callback.password_reset_token+'">link</a> to complete the process.</p><br><p>Thank you!</p><p>NarcAudit.com</p></div></body></html>' // html body
             };
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {

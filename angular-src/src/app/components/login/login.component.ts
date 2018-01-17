@@ -3,6 +3,7 @@ import {FormControl, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
+import {ServerConfig} from '../../common/server/server.config';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              public snackBar: MatSnackBar) {
+              public snackBar: MatSnackBar,
+              public servers: ServerConfig) {
   }
 
   ngOnInit() {

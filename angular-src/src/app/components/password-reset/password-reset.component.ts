@@ -3,6 +3,7 @@ import {FormControl, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
+import {passwordValidator} from '../../validators/password-validator';
 
 @Component({
   selector: 'app-password-reset',
@@ -17,12 +18,19 @@ export class PasswordResetComponent implements OnInit {
   serviceResponse: any;
 
   passwordNewFormControl = new FormControl('', [
-    Validators.minLength(8),
     Validators.required,
+    passwordValidator({
+      minLength: 8,
+      maxLength: 32,
+      requireLetters: true,
+      requireLowerCaseLetters: true,
+      requireUpperCaseLetters: true,
+      requireNumbers: true,
+      requireSpecialCharacters: true
+    })
   ]);
 
   passwordVerifyFormControl = new FormControl('', [
-    Validators.minLength(8),
     Validators.required,
   ]);
 
