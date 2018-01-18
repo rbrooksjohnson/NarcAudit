@@ -3,8 +3,7 @@ import {FormControl, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
-import {ServerConfig} from '../../common/server/server.config';
-
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +16,8 @@ export class LoginComponent implements OnInit {
   email: String;
   password: String;
   serviceResponse: any;
+
+  server = environment.frontEnd;
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -31,11 +32,11 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              public snackBar: MatSnackBar,
-              public servers: ServerConfig) {
+              public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
+
   }
 
   onLoginSubmit() {

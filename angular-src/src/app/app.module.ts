@@ -24,7 +24,6 @@ import { HttpClientModule } from '@angular/common/http';
 // Services
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
-import { ServerConfig } from './common/server/server.config';
 
 @NgModule({
   declarations: [
@@ -47,7 +46,7 @@ import { ServerConfig } from './common/server/server.config';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [AuthService, AuthGuard, ServerConfig],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
