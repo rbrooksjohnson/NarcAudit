@@ -47,6 +47,7 @@ import { AuthGuard } from './services/auth-guard.service';
     HttpClientModule,
   ],
   providers: [AuthService, AuthGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [LockComponent],
 })
 export class AppModule { }

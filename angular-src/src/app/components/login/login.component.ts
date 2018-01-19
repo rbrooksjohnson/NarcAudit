@@ -3,7 +3,8 @@ import {FormControl, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
-import {environment} from '../../../environments/environment';
+import {MatDialog} from '@angular/material';
+import {LockComponent} from '../../common/lock/lock.component';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +17,6 @@ export class LoginComponent implements OnInit {
   email: String;
   password: String;
   serviceResponse: any;
-
-  server = environment.frontEnd;
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -32,7 +31,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              public snackBar: MatSnackBar) {
+              public snackBar: MatSnackBar,
+              public lock: MatDialog) {
   }
 
   ngOnInit() {
@@ -51,11 +51,16 @@ export class LoginComponent implements OnInit {
           if (this.serviceResponse.success) {
             this.authService.storeUserData(this.serviceResponse.token, this.serviceResponse.user);
             this.router.navigate(['./dashboard']);
+            this.lock.open(LockComponent, {
+              width: '350px',
+              disableClose: true,
+            });
+
           } else {
           }
         },
         err => {
-          this.snackBar.open('Error: Server Offline - Try Again Later', 'OK', { duration: 3000 });
+          this.snackBar.open('Error: '+err, 'OK', { duration: 3000 });
         }
       );
     }

@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {tokenNotExpired} from 'angular2-jwt';
+import {tokenNotExpired, JwtHelper} from 'angular2-jwt';
 import {environment} from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
   authToken: any;
   user: any;
+  jwtHelper: JwtHelper = new JwtHelper();
+
 
   constructor(private http: HttpClient) {
   }
@@ -29,7 +31,8 @@ export class AuthService {
 
   storeUserData(token, user) {
     localStorage.setItem('id_token', token);
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user.name));
+    localStorage.setItem('facility', JSON.stringify(user.facility));
     this.authToken = token;
     this.user = user;
   };
@@ -63,4 +66,11 @@ export class AuthService {
       'http://'+environment.backEnd+'/users/password_reset'+query,
       {headers: headers});
   };
+
+  decodeToken() {
+    this.authToken = localStorage.getItem('id_token');
+    const decoded = this.jwtHelper.decodeToken(this.authToken);
+    return decoded.data;
+  };
+
 }

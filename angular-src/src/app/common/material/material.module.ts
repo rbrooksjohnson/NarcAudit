@@ -13,16 +13,17 @@ import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatFormFieldModule, MatSnackBarModule} from '@angular/material';
+import {MatDialogModule} from '@angular/material';
 import {NgModule} from "@angular/core";
 
 @NgModule({
   imports: [MatButtonModule, MatToolbarModule, MatMenuModule, MatSelectModule,
     MatTabsModule, MatInputModule, MatProgressSpinnerModule, MatChipsModule,
     MatSidenavModule, MatCheckboxModule, MatCardModule, MatListModule, MatIconModule,
-    MatTooltipModule, MatFormFieldModule, MatSnackBarModule],
+    MatTooltipModule, MatFormFieldModule, MatSnackBarModule, MatDialogModule],
   exports: [MatButtonModule, MatToolbarModule, MatMenuModule, MatSelectModule,
     MatTabsModule, MatInputModule, MatProgressSpinnerModule, MatChipsModule,
     MatSidenavModule, MatCheckboxModule, MatCardModule, MatListModule, MatIconModule,
-    MatTooltipModule, MatFormFieldModule, MatSnackBarModule],
+    MatTooltipModule, MatFormFieldModule, MatSnackBarModule, MatDialogModule],
 })
 export class MaterialModule { }
